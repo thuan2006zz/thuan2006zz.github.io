@@ -1,78 +1,97 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đang chuyển hướng...</title>
-  
-  <!-- Tự động chuyển hướng bằng Meta Refresh -->
-  <meta http-equiv="refresh" content="0; url=https://gg8853.com/">
-  
-  <!-- Thẻ Canonical -->
-  <link rel="canonical" href="https://gg8853.com/">
-
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #0d1117;
-      color: #c9d1d9;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-    }
-    .container {
-      max-width: 500px;
-      padding: 20px;
-    }
-    .spinner {
-      border: 4px solid rgba(255, 255, 255, 0.1);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border-left-color: #58a6ff;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 20px auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    h1 {
-      font-size: 20px;
-      font-weight: 500;
-      margin-bottom: 10px;
-      color: #f0f6fc;
-    }
-    p {
-      font-size: 14px;
-      color: #8b949e;
-      margin-bottom: 20px;
-    }
-    a {
-      color: #58a6ff;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
-
-  <!-- Tự động chuyển hướng bằng JavaScript -->
-  <script type="text/javascript">
-    window.location.replace("https://gg8853.com/");
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTN VN - Games & Minecraft Addons Portfolio</title>
+    <meta name="description" content="Welcome to ModVault! Browse and download custom games and Minecraft addons made by TTN VN. Clean, static, and easy to install.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <div class="spinner"></div>
-    <h1>Đang chuyển hướng đến trang web yêu cầu</h1>
-    <p>Vui lòng đợi trong giây lát...</p>
-    <p>Nếu bạn không được chuyển hướng tự động, <a href="https://gg8853.com/">nhấp vào đây để tiếp tục</a>.</p>
-  </div>
+    <div class="app-container">
+        <!-- Developer Profile Header -->
+        <header class="dev-header">
+            <!-- Language Selection -->
+            <div class="lang-selector">
+                <button class="lang-btn active" id="lang-btn-vi">VIE</button>
+                <button class="lang-btn" id="lang-btn-en">ENG</button>
+            </div>
+            
+            <div class="profile-area">
+                <div class="profile-avatar">
+                    <img src="images/avatar.png" alt="TTN VN Avatar" class="profile-avatar-img">
+                </div>
+                <div class="profile-info">
+                    <h1 class="dev-name">TTN VN</h1>
+                    <p class="dev-bio" data-translate="dev-bio">Nhà phát triển game độc lập & Người sáng tạo Minecraft Addon. Chia sẻ các bản mod, gói hành vi tùy chỉnh và game độc lập.</p>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/@TTNVN7144" target="_blank" class="social-link" title="YouTube Channel">
+                            <i data-lucide="youtube"></i> YouTube
+                        </a>
+                        <a href="https://t.me/chimdangxem" target="_blank" class="social-link" title="Telegram Contact">
+                            <i data-lucide="send"></i> Telegram
+                        </a>
+                        <a href="https://zalo.me/g/zbrdie617" target="_blank" class="social-link" title="Zalo Group">
+                            <i data-lucide="message-square"></i> Nhóm Zalo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search and Filter Section -->
+        <section class="controls-section">
+            <div class="search-box">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="search-input" placeholder="Tìm kiếm game hoặc addon..." data-translate-placeholder="search-placeholder">
+            </div>
+            
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all"><span data-translate="tab-all">Tất cả dự án</span></button>
+                <button class="filter-tab" data-filter="game"><i data-lucide="gamepad-2"></i> <span data-translate="tab-games">Trò chơi</span></button>
+                <button class="filter-tab" data-filter="addon"><i data-lucide="layers"></i> <span data-translate="tab-addons">Addon Minecraft</span></button>
+            </div>
+        </section>
+
+        <!-- Catalog Grid -->
+        <main class="app-main">
+            <div class="catalog-grid" id="catalog-grid">
+                <!-- Cards will be dynamically inserted here via app.js -->
+            </div>
+
+            <!-- Empty Search State -->
+            <div class="empty-state hidden" id="empty-state">
+                <i data-lucide="frown" class="empty-icon"></i>
+                <h3 data-translate="empty-title">Không tìm thấy dự án</h3>
+                <p data-translate="empty-desc">Thử tìm kiếm từ khóa khác hoặc chuyển danh mục.</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p data-translate="footer-text">&copy; 2026 TTN VN. Trang web dạng tĩnh chạy trên GitHub Pages. Mọi tệp tin đều an toàn để tải xuống.</p>
+        </footer>
+    </div>
+
+    <!-- DETAIL MODAL DIALOG -->
+    <div class="modal-overlay" id="detail-modal">
+        <div class="modal-container glass-card">
+            <button class="modal-close" id="modal-close-btn" title="Close details">
+                <i data-lucide="x"></i>
+            </button>
+            
+            <div class="modal-body" id="modal-body-content">
+                <!-- Dynamically populated via app.js -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
