@@ -774,6 +774,9 @@ function spawnFloatingNote() {
 
 // 3D Card Parallax Tilt Handler
 function handleCardTilt(card) {
+    const inner = card.querySelector('.project-card-inner');
+    if (!inner) return;
+
     card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left; // x position inside card bounds
@@ -783,13 +786,13 @@ function handleCardTilt(card) {
         const tiltX = ((y / rect.height) - 0.5) * -16;
         const tiltY = ((x / rect.width) - 0.5) * 16;
         
-        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.03, 1.03, 1.03)`;
+        inner.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.03, 1.03, 1.03)`;
     });
     
-    card.style.transformStyle = 'preserve-3d';
+    inner.style.transformStyle = 'preserve-3d';
     
     card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        inner.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
     });
 }
 
@@ -836,36 +839,50 @@ function formatMinecraftColors(text) {
 }
 
 // Custom Minecraft Floating Tooltip
+let currentMouseX = 0;
+let currentMouseY = 0;
+
 function initMCTooltip() {
     const tooltip = document.getElementById('mc-tooltip');
     if (!tooltip) return;
     
     document.addEventListener('mousemove', (e) => {
+        currentMouseX = e.clientX;
+        currentMouseY = e.clientY;
+        
         if (tooltip.style.display === 'block') {
-            const xOffset = 18;
-            const yOffset = 18;
-            
-            let x = e.pageX + xOffset;
-            let y = e.pageY + yOffset;
-            
-            const tooltipWidth = tooltip.offsetWidth;
-            const tooltipHeight = tooltip.offsetHeight;
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
-            const viewWidth = window.innerWidth;
-            const viewHeight = window.innerHeight;
-            
-            if (x + tooltipWidth > viewWidth + scrollX) {
-                x = e.pageX - tooltipWidth - 10;
-            }
-            if (y + tooltipHeight > viewHeight + scrollY) {
-                y = e.pageY - tooltipHeight - 10;
-            }
-            
-            tooltip.style.left = `${x}px`;
-            tooltip.style.top = `${y}px`;
+            updateMCTooltipPosition();
         }
     });
+}
+
+function updateMCTooltipPosition() {
+    const tooltip = document.getElementById('mc-tooltip');
+    if (!tooltip) return;
+    
+    const xOffset = 18;
+    const yOffset = 18;
+    
+    let x = currentMouseX + xOffset;
+    let y = currentMouseY + yOffset;
+    
+    const tooltipWidth = tooltip.offsetWidth;
+    const tooltipHeight = tooltip.offsetHeight;
+    const viewWidth = window.innerWidth;
+    const viewHeight = window.innerHeight;
+    
+    if (x + tooltipWidth > viewWidth) {
+        x = currentMouseX - tooltipWidth - 10;
+    }
+    if (y + tooltipHeight > viewHeight) {
+        y = currentMouseY - tooltipHeight - 10;
+    }
+    
+    if (x < 10) x = 10;
+    if (y < 10) y = 10;
+    
+    tooltip.style.left = `${x}px`;
+    tooltip.style.top = `${y}px`;
 }
 
 function showTooltip(projectId) {
@@ -909,6 +926,7 @@ function showTooltip(projectId) {
     `;
     
     tooltip.style.display = 'block';
+    updateMCTooltipPosition();
 }
 
 function hideTooltip() {
@@ -1116,21 +1134,23 @@ function renderCatalog() {
         const titleColorClass = project.rarity === 'vip' ? 'enchanted-text' : '';
 
         card.innerHTML = `
-            <div class="project-image-placeholder">
-                <img src="${project.image}" alt="${escapeHtml(project.title[currentLang])}" class="project-card-image">
-            </div>
-            <div class="card-body">
-                <div class="badge-row">
-                    <span class="badge ${badgeClass}">${badgeLabel}</span>
-                    ${project.type === 'addon' ? `<span class="badge badge-addon">${project.mcVersion}</span>` : ''}
+            <div class="project-card-inner">
+                <div class="project-image-placeholder">
+                    <img src="${project.image}" alt="${escapeHtml(project.title[currentLang])}" class="project-card-image">
                 </div>
-                <h3 class="project-title ${titleColorClass}">${escapeHtml(project.title[currentLang])}</h3>
-                <p class="project-desc">${escapeHtml(project.shortDesc[currentLang])}</p>
-                <div class="card-footer">
-                    <span class="project-size"><i data-lucide="download" style="width:12px;height:12px;vertical-align:middle;margin-right:2px;"></i> ${project.downloads.toLocaleString()}+</span>
-                    <button class="btn-card-action">
-                        ${TRANSLATIONS[currentLang]['view-details']} <i data-lucide="arrow-right"></i>
-                    </button>
+                <div class="card-body">
+                    <div class="badge-row">
+                        <span class="badge ${badgeClass}">${badgeLabel}</span>
+                        ${project.type === 'addon' ? `<span class="badge badge-addon">${project.mcVersion}</span>` : ''}
+                    </div>
+                    <h3 class="project-title ${titleColorClass}">${escapeHtml(project.title[currentLang])}</h3>
+                    <p class="project-desc">${escapeHtml(project.shortDesc[currentLang])}</p>
+                    <div class="card-footer">
+                        <span class="project-size"><i data-lucide="download" style="width:12px;height:12px;vertical-align:middle;margin-right:2px;"></i> ${project.downloads.toLocaleString()}+</span>
+                        <button class="btn-card-action">
+                            ${TRANSLATIONS[currentLang]['view-details']} <i data-lucide="arrow-right"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
