@@ -1,40 +1,73 @@
-/* ModVault - Premium Minecraft & Pixel-Art Gaming Portfolio */
+/* ModVault - Premium Minecraft VIP Gaming Portfolio & Showcase */
 
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --bg-color: #111116;
+    --bg-color: #0f0f13;
     
     /* Voxel Theme Palette */
-    --mc-stone: #2e2e2e;
+    --mc-stone: #2c2c2c;
     --mc-stone-light: #4c4c4c;
-    --mc-stone-dark: #151515;
+    --mc-stone-dark: #1b1b1b;
+    --mc-wood: #705235;
+    --mc-wood-light: #9c7853;
+    --mc-wood-dark: #47321e;
     
     --text-primary: #ffffff;
-    --text-secondary: #c6c6c6;
-    --text-muted: #7a7a7a;
+    --text-secondary: #d1d1d6;
+    --text-muted: #8a8a93;
     
     /* Accents with solid gaming glows */
     --accent-games: #38bdf8;   /* Cyan / Diamond */
     --accent-addons: #10b981;  /* Emerald Green */
     --accent-warning: #fbbf24; /* Gold */
+    --accent-red: #ef4444;     /* Redstone Red */
     
-    --font-pixel: 'Press Start 2P', monospace;
+    --font-pixel: 'VT323', monospace;
     --font-sans: 'Outfit', sans-serif;
     
-    --transition-snappy: all 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    --transition-snappy: all 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
-/* Base resets */
+/* Base resets & Custom Scrollbar */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Minecraft-style Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #111;
+    border-left: 3px solid #333;
+}
+::-webkit-scrollbar-thumb {
+    background: #555;
+    border: 3px solid #111;
+    image-rendering: pixelated;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+#bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    display: block;
+}
+
 body {
     background-color: var(--bg-color);
-    background-image: linear-gradient(rgba(15, 15, 22, 0.82), rgba(15, 15, 22, 0.94)), url('images/minecraft_bg.png');
+    /* Sunset scenery background with clean pixel filter */
+    background-image: linear-gradient(rgba(10, 10, 14, 0.88), rgba(15, 15, 20, 0.97)), url('images/minecraft_bg.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -43,10 +76,11 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 .app-container {
-    max-width: 1100px;
+    max-width: 1000px;
     width: 100%;
     margin: 0 auto;
     padding: 3rem 1.5rem;
@@ -56,32 +90,64 @@ body {
 }
 
 /* ----------------------------------------------------
-   Minecraft-Style Block Borders & Containers (3D bevel)
----------------------------------------------------- */
-.minecraft-block {
-    background-color: var(--mc-stone);
+   Minecraft UI Container Details (Pixel borders)
+   ---------------------------------------------------- */
+.minecraft-border {
     border: 4px solid #000000;
-    /* Simulate 3D bevel shading of Minecraft UI containers */
     box-shadow: 
-        inset 4px 4px 0px var(--mc-stone-light),
-        inset -4px -4px 0px var(--mc-stone-dark),
-        0px 10px 20px rgba(0,0,0,0.5);
-    image-rendering: pixelated;
+        0 2px 4px rgba(0,0,0,0.2),
+        0 8px 16px rgba(0,0,0,0.3),
+        inset 4px 4px 0px rgba(255, 255, 255, 0.08),
+        inset -4px -4px 0px rgba(0, 0, 0, 0.4);
 }
 
 /* Dev Profile Header Card */
 .dev-header {
-    background-color: rgba(26, 26, 36, 0.75);
+    background-color: rgba(25, 25, 35, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 4px solid #000000;
+    border-top: 12px solid #5c8e32; /* Grass green border */
     box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.15),
+        0 8px 16px rgba(0, 0, 0, 0.25),
+        0 20px 40px rgba(0, 0, 0, 0.35),
         inset 4px 4px 0px rgba(255,255,255,0.06), 
-        inset -4px -4px 0px rgba(0,0,0,0.25),
-        0 12px 25px rgba(0,0,0,0.4);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 2.2rem;
-    margin-bottom: 3rem;
+        inset -4px -4px 0px rgba(0,0,0,0.4);
+    padding: 2.5rem;
+    margin-bottom: 3.5rem;
     position: relative;
+    overflow: hidden;
+}
+
+/* Repeating pixelated grass underlay */
+.dev-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(90deg, #4c7828 0, #4c7828 8px, #3c5e20 8px, #3c5e20 16px);
+    opacity: 0.85;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Animated subtle background grids overlay */
+.dev-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .lang-selector {
@@ -89,10 +155,12 @@ body {
     top: 1rem;
     right: 1rem;
     display: flex;
-    gap: 0.35rem;
-    background-color: rgba(0, 0, 0, 0.4);
-    border: 2px solid #000;
+    gap: 2px;
+    background-color: #1e1e1e;
+    border: 3px solid #000000;
+    box-shadow: inset 2px 2px 0px #5c5c5c, inset -2px -2px 0px #0e0e0e;
     padding: 2px;
+    z-index: 10;
 }
 
 .lang-btn {
@@ -100,26 +168,28 @@ body {
     border: none;
     outline: none;
     color: var(--text-muted);
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 800;
-    padding: 0.3rem 0.6rem;
+    font-family: var(--font-pixel);
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0.2rem 0.6rem;
     cursor: pointer;
     transition: var(--transition-snappy);
+    image-rendering: pixelated;
 }
 
 .lang-btn:hover {
     color: #fff;
+    background-color: rgba(255,255,255,0.05);
 }
 
 .lang-btn.active {
     background-color: #5c5c5c;
-    border: 1px solid #000;
+    border: 2px solid #000;
     border-top-color: #8b8b8b;
     border-left-color: #8b8b8b;
     border-bottom-color: #373737;
     border-right-color: #373737;
-    color: #fff;
+    color: #ffff55; /* Minecraft gold chat color */
     text-shadow: 1px 1px 0px #000;
 }
 
@@ -127,14 +197,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 2.2rem;
+    position: relative;
+    z-index: 1;
 }
 
 @media(min-width: 768px) {
     .profile-area {
         flex-direction: row;
         text-align: left;
-        align-items: center;
     }
 }
 
@@ -142,28 +213,29 @@ body {
     background-color: #3c3c3c;
     border: 4px solid #000000;
     box-shadow: 
-        inset 4px 4px 0px #5c5c5c,
-        inset -4px -4px 0px #1e1e1e;
-    width: 88px;
-    height: 88px;
+        inset 4px 4px 0px #6c6c6c,
+        inset -4px -4px 0px #1c1c1c,
+        0 0 25px rgba(16, 185, 129, 0.25);
+    width: 96px;
+    height: 96px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     overflow: hidden;
+    animation: avatarFloat 3s ease-in-out infinite alternate;
 }
 
 .profile-avatar-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    image-rendering: pixelated;
 }
 
-.avatar-icon {
-    width: 42px;
-    height: 42px;
-    color: var(--accent-addons);
-    filter: drop-shadow(0 0 6px var(--accent-addons));
+@keyframes avatarFloat {
+    from { transform: translateY(0px) rotate(-1deg); }
+    to { transform: translateY(-6px) rotate(1deg); }
 }
 
 .profile-info {
@@ -172,12 +244,38 @@ body {
 
 .dev-name {
     font-family: var(--font-pixel);
-    font-size: 1.4rem;
-    line-height: 1.3;
-    margin-bottom: 0.8rem;
-    letter-spacing: -1px;
-    color: #ffffff;
+    font-size: 2.7rem;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    color: #ffff55; /* VIP Gold name tag */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    letter-spacing: 1px;
+    filter: drop-shadow(3px 3px 0px #000);
+}
+
+/* VIP rank tag styling */
+.dev-name::after {
+    content: 'VIP';
+    font-size: 1.1rem;
+    background: #ff55ff;
+    border: 2px solid #000;
+    border-top-color: #ff85ff;
+    border-left-color: #ff85ff;
+    border-bottom-color: #aa3ca0;
+    border-right-color: #aa3ca0;
+    color: #ffff55;
     text-shadow: 2px 2px 0px #000;
+    padding: 0.1rem 0.5rem;
+    vertical-align: middle;
+    animation: vipPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes vipPulse {
+    0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255, 85, 255, 0)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 8px rgba(255, 85, 255, 0.6)); }
+    100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255, 85, 255, 0)); }
 }
 
 .dev-bio {
@@ -192,57 +290,60 @@ body {
 .social-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.65rem;
+    gap: 0.8rem;
 }
 
 .social-link {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    background-color: #5c5c5c;
-    border: 2px solid #000000;
-    border-top-color: #8b8b8b;
-    border-left-color: #8b8b8b;
-    border-bottom-color: #373737;
-    border-right-color: #373737;
+    background-color: #4c4c4c;
+    border: 3px solid #000000;
+    border-top-color: #7c7c7c;
+    border-left-color: #7c7c7c;
+    border-bottom-color: #2a2a2a;
+    border-right-color: #2a2a2a;
     color: #ffffff;
     text-decoration: none;
-    padding: 0.5rem 0.9rem;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
+    padding: 0.5rem 1.1rem;
+    font-family: var(--font-pixel);
+    font-size: 1.3rem;
     cursor: pointer;
     transition: var(--transition-snappy);
-    text-shadow: 1px 1px 0px #000;
+    text-shadow: 2px 2px 0px #000;
+    image-rendering: pixelated;
 }
 
 .social-link:hover {
-    background-color: #7c7c7c;
-    border-top-color: #a8a8a8;
-    border-left-color: #a8a8a8;
-    border-bottom-color: #515151;
-    border-right-color: #515151;
+    background-color: #5c5c5c;
+    border-top-color: #8c8c8c;
+    border-left-color: #8c8c8c;
+    border-bottom-color: #3a3a3a;
+    border-right-color: #3a3a3a;
+    color: #ffff55;
 }
 
 .social-link:active {
-    border-top-color: #373737;
-    border-left-color: #373737;
-    border-bottom-color: #8b8b8b;
-    border-right-color: #8b8b8b;
-    background-color: #4a4a4a;
+    border-top-color: #1a1a1a;
+    border-left-color: #1a1a1a;
+    border-bottom-color: #7c7c7c;
+    border-right-color: #7c7c7c;
+    background-color: #313131;
+    padding-top: 0.55rem;
+    padding-bottom: 0.45rem;
 }
 
 .social-link svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
 }
 
 /* Controls layout */
 .controls-section {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
 }
 
 @media(min-width: 992px) {
@@ -270,21 +371,21 @@ body {
     left: 1.1rem;
     top: 50%;
     transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     color: var(--text-muted);
     pointer-events: none;
 }
 
 .search-box input {
     width: 100%;
-    background-color: rgba(0,0,0,0.45);
-    border: 3px solid #000;
-    border-top-color: #1b1b1b;
-    border-left-color: #1b1b1b;
-    border-bottom-color: #444;
-    border-right-color: #444;
-    padding: 0.75rem 1rem 0.75rem 2.8rem;
+    background-color: rgba(0,0,0,0.6);
+    border: 4px solid #000;
+    border-top-color: #111;
+    border-left-color: #111;
+    border-bottom-color: #555;
+    border-right-color: #555;
+    padding: 0.8rem 1rem 0.8rem 3rem;
     color: #fff;
     font-family: var(--font-sans);
     font-weight: 600;
@@ -295,86 +396,90 @@ body {
 
 .search-box input:focus {
     border-color: var(--accent-addons);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
 }
 
-/* Blocky filter tabs */
+/* ----------------------------------------------------
+   Minecraft Hotbar Filter Tabs
+   ---------------------------------------------------- */
 .filter-tabs {
     display: flex;
-    gap: 0.5rem;
-    background-color: rgba(0,0,0,0.3);
-    border: 3px solid #000;
-    padding: 0.25rem;
+    background-color: #8f8f8f;
+    border: 4px solid #3c3c3c;
+    border-top-color: #b2b2b2;
+    border-left-color: #b2b2b2;
+    border-bottom-color: #212121;
+    border-right-color: #212121;
+    padding: 3px;
+    gap: 3px;
+    image-rendering: pixelated;
 }
 
 .filter-tab {
-    background: transparent;
-    border: none;
+    background-color: #8f8f8f;
+    border: 3px solid #8f8f8f;
     outline: none;
-    color: var(--text-secondary);
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    font-weight: 800;
-    padding: 0.55rem 1rem;
+    color: #3c3c3c;
+    font-family: var(--font-pixel);
+    font-size: 1.35rem;
+    font-weight: bold;
+    padding: 0.45rem 1.2rem;
     cursor: pointer;
     white-space: nowrap;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.2);
     transition: var(--transition-snappy);
 }
 
 .filter-tab svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
 }
 
 .filter-tab:hover {
-    color: #fff;
+    background-color: rgba(255,255,255,0.15);
+    color: #000;
 }
 
+/* Active Tab acts as the Minecraft Hotbar Selector Frame */
 .filter-tab.active {
-    background-color: #5c5c5c;
-    border: 2px solid #000;
-    border-top-color: #8b8b8b;
-    border-left-color: #8b8b8b;
-    border-bottom-color: #373737;
-    border-right-color: #373737;
-    color: #fff;
-    text-shadow: 1px 1px 0px #000;
+    background-color: #8f8f8f;
+    border: 4px solid #ffffff;
+    box-shadow: 
+        inset -3px -3px 0px #3c3c3c,
+        inset 3px 3px 0px #b2b2b2,
+        0px 4px 10px rgba(0,0,0,0.3);
+    color: #ffffff;
+    text-shadow: 2px 2px 0px #000;
+    margin: -1px; /* Offset the 4px border size */
 }
 
-/* Project catalog grid */
+/* Catalog center wrapper */
 .catalog-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 2rem;
     margin-bottom: 4rem;
 }
 
-@media(min-width: 576px) {
-    .catalog-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media(min-width: 992px) {
-    .catalog-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
 /* ----------------------------------------------------
-   Project Cards (Minecraft item inventory box styling)
----------------------------------------------------- */
+   Project Cards (Minecraft Inventory Box Bevel)
+   ---------------------------------------------------- */
 .project-card {
     background-color: var(--mc-stone);
     border: 4px solid #000000;
     box-shadow: 
         inset 4px 4px 0px var(--mc-stone-light),
         inset -4px -4px 0px var(--mc-stone-dark),
-        0px 8px 16px rgba(0,0,0,0.4);
+        0px 10px 25px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 360px;
     cursor: pointer;
     position: relative;
     transition: var(--transition-snappy);
@@ -382,7 +487,17 @@ body {
 }
 
 .project-card:hover {
-    transform: scale(1.02);
+    transform: scale(1.03) translateY(-4px);
+}
+
+/* Enchanted item hover states based on prefix namespaces */
+.project-card:hover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 4px solid #ffffff;
+    pointer-events: none;
+    z-index: 5;
 }
 
 .project-card.type-game:hover {
@@ -390,7 +505,7 @@ body {
     box-shadow: 
         inset 4px 4px 0px var(--mc-stone-light),
         inset -4px -4px 0px var(--mc-stone-dark),
-        0 0 16px rgba(56, 189, 248, 0.4);
+        0 0 25px rgba(56, 189, 248, 0.45);
 }
 
 .project-card.type-addon:hover {
@@ -398,19 +513,20 @@ body {
     box-shadow: 
         inset 4px 4px 0px var(--mc-stone-light),
         inset -4px -4px 0px var(--mc-stone-dark),
-        0 0 16px rgba(16, 185, 129, 0.4);
+        0 0 25px rgba(16, 185, 129, 0.45);
 }
 
 .project-image-placeholder {
-    aspect-ratio: 1 / 1;
-    background-color: rgba(0,0,0,0.5);
+    aspect-ratio: 1.2 / 1;
+    background-color: rgba(0,0,0,0.65);
     border: 4px solid #000;
-    margin: 10px;
+    margin: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    box-shadow: inset 4px 4px 0px #000;
 }
 
 .project-card-image {
@@ -422,11 +538,11 @@ body {
 }
 
 .project-card:hover .project-card-image {
-    transform: scale(1.05);
+    transform: scale(1.06);
 }
 
 .card-body {
-    padding: 0.8rem 1rem 1rem 1rem;
+    padding: 0.5rem 1.2rem 1.2rem 1.2rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -434,16 +550,18 @@ body {
 
 .badge-row {
     display: flex;
-    gap: 0.4rem;
-    margin-bottom: 0.75rem;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .badge {
-    font-size: 0.65rem;
-    font-weight: 800;
+    font-family: var(--font-pixel);
+    font-size: 1.05rem;
     text-transform: uppercase;
-    padding: 0.2rem 0.5rem;
-    border: 2px solid #000;
+    padding: 0.1rem 0.6rem;
+    border: 3px solid #000;
+    text-shadow: 1px 1px 0px #000;
+    image-rendering: pixelated;
 }
 
 .badge-game {
@@ -474,22 +592,23 @@ body {
 }
 
 .project-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin-bottom: 0.6rem;
+    font-family: var(--font-pixel);
+    font-size: 1.8rem;
+    font-weight: normal;
+    margin-bottom: 0.5rem;
     color: #ffffff;
-    font-family: var(--font-sans);
-    letter-spacing: -0.2px;
+    text-shadow: 2px 2px 0px #000;
+    letter-spacing: 0.5px;
 }
 
 .project-desc {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    line-height: 1.5;
-    margin-bottom: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
     flex-grow: 1;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -498,25 +617,27 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 2px solid rgba(0,0,0,0.25);
+    border-top: 3px solid #1b1b1b;
     padding-top: 0.8rem;
 }
 
 .project-size {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-weight: 600;
+    font-family: var(--font-pixel);
+    font-size: 1.2rem;
+    color: #ffff55; /* Gold tag */
+    text-shadow: 1px 1px 0px #000;
 }
 
 .btn-card-action {
-    font-size: 0.75rem;
-    font-weight: 800;
+    font-family: var(--font-pixel);
+    font-size: 1.3rem;
     background: transparent;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.35rem;
+    text-shadow: 1px 1px 0px #000;
 }
 
 .project-card.type-game .btn-card-action {
@@ -528,20 +649,20 @@ body {
 }
 
 .btn-card-action svg {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     transition: var(--transition-snappy);
 }
 
 .project-card:hover .btn-card-action svg {
-    transform: translateX(2px);
+    transform: translateX(3px);
 }
 
 /* Empty search screen */
 .empty-state {
     text-align: center;
     padding: 5rem 2rem;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.5);
     border: 4px solid #000;
 }
 
@@ -554,19 +675,19 @@ body {
 
 .empty-state h3 {
     font-family: var(--font-pixel);
-    font-size: 0.95rem;
+    font-size: 1.8rem;
     margin-bottom: 0.75rem;
-    text-shadow: 1px 1px 0px #000;
+    text-shadow: 2px 2px 0px #000;
 }
 
 .empty-state p {
     color: var(--text-secondary);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
 /* ----------------------------------------------------
    MODAL CONTAINER & UI
----------------------------------------------------- */
+   ---------------------------------------------------- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -574,8 +695,8 @@ body {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -592,7 +713,7 @@ body {
 }
 
 .modal-container {
-    max-width: 700px;
+    max-width: 680px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
@@ -601,10 +722,10 @@ body {
     box-shadow: 
         inset 4px 4px 0px var(--mc-stone-light),
         inset -4px -4px 0px var(--mc-stone-dark),
-        0 15px 35px rgba(0,0,0,0.6);
-    padding: 2rem;
-    transform: translateY(20px) scale(0.95);
-    transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        0 20px 45px rgba(0,0,0,0.8);
+    padding: 2.2rem;
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     position: relative;
     scrollbar-width: thin;
 }
@@ -617,15 +738,15 @@ body {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background-color: #5c5c5c;
-    border: 2px solid #000000;
-    border-top-color: #8b8b8b;
-    border-left-color: #8b8b8b;
-    border-bottom-color: #373737;
-    border-right-color: #373737;
+    background-color: #4c4c4c;
+    border: 3px solid #000000;
+    border-top-color: #7c7c7c;
+    border-left-color: #7c7c7c;
+    border-bottom-color: #2a2a2a;
+    border-right-color: #2a2a2a;
     color: #ffffff;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 0;
     display: flex;
     align-items: center;
@@ -636,23 +757,29 @@ body {
 }
 
 .modal-close:hover {
-    background-color: #c0392b;
-    border-top-color: #e74c3c;
-    border-left-color: #e74c3c;
-    border-bottom-color: #962d22;
-    border-right-color: #962d22;
+    background-color: #b22222;
+    border-top-color: #e33;
+    border-left-color: #e33;
+    border-bottom-color: #600;
+    border-right-color: #600;
+}
+
+.modal-close svg {
+    width: 16px;
+    height: 16px;
 }
 
 .modal-body {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
 }
 
 .modal-hero-placeholder {
-    height: 350px;
-    background-color: rgba(0,0,0,0.55);
+    height: 300px;
+    background-color: rgba(0,0,0,0.7);
     border: 4px solid #000;
+    box-shadow: inset 4px 4px 0px #000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -661,8 +788,8 @@ body {
 }
 
 .modal-hero-image {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 90%;
+    max-height: 90%;
     width: auto;
     height: auto;
     object-fit: contain;
@@ -670,23 +797,29 @@ body {
 }
 
 .modal-title-row {
-    margin-top: 0.25rem;
+    margin-top: 0.2rem;
 }
 
 .modal-project-title {
-    font-size: 1.4rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
+    font-family: var(--font-pixel);
+    font-size: 2.2rem;
+    font-weight: normal;
+    margin-bottom: 0.6rem;
     color: #fff;
+    text-shadow: 2px 2px 0px #000;
 }
 
 .modal-meta-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-    background-color: rgba(0,0,0,0.25);
-    border: 3px solid #000;
-    padding: 0.85rem;
+    gap: 0.8rem;
+    background-color: rgba(0,0,0,0.45);
+    border: 4px solid #000;
+    border-top-color: #111;
+    border-left-color: #111;
+    border-bottom-color: #555;
+    border-right-color: #555;
+    padding: 1rem;
 }
 
 @media(min-width: 576px) {
@@ -701,43 +834,46 @@ body {
 }
 
 .meta-label {
-    font-size: 0.7rem;
+    font-family: var(--font-pixel);
+    font-size: 1.1rem;
     color: var(--text-muted);
-    font-weight: 700;
-    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .meta-value {
-    font-size: 0.85rem;
-    font-weight: 800;
-    color: #fff;
-    margin-top: 0.15rem;
+    font-family: var(--font-pixel);
+    font-size: 1.3rem;
+    font-weight: normal;
+    color: #ffff55; /* Gold values */
+    margin-top: 0.1rem;
+    text-shadow: 1px 1px 0px #000;
 }
 
 .modal-description {
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.92rem;
+    line-height: 1.7;
 }
 
 .modal-info-block {
-    border-top: 2px solid rgba(0,0,0,0.25);
-    padding-top: 1rem;
+    border-top: 3px solid #1b1b1b;
+    padding-top: 1.2rem;
 }
 
 .block-title {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
+    font-family: var(--font-pixel);
+    font-size: 1.6rem;
+    font-weight: normal;
+    margin-bottom: 0.6rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    text-shadow: 2px 2px 0px #000;
 }
 
 .block-title svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     color: var(--accent-warning);
 }
 
@@ -746,12 +882,12 @@ body {
 }
 
 .modal-list li {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
     position: relative;
-    padding-left: 1.1rem;
-    margin-bottom: 0.4rem;
-    line-height: 1.5;
+    padding-left: 1.3rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.6;
 }
 
 .modal-list li::before {
@@ -759,16 +895,30 @@ body {
     position: absolute;
     left: 0;
     color: var(--accent-addons);
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     top: 2px;
+}
+
+.modal-list li strong {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.modal-list li code {
+    background-color: rgba(0,0,0,0.4);
+    border: 1px solid #111;
+    padding: 0.1rem 0.4rem;
+    color: #ff5555; /* Minecraft red chat code */
+    font-family: var(--font-pixel);
+    font-size: 1.15rem;
 }
 
 /* Action Area */
 .modal-actions {
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.8rem;
 }
 
 @media(min-width: 576px) {
@@ -778,22 +928,21 @@ body {
 }
 
 /* ----------------------------------------------------
-   Minecraft UI Buttons (3D Bevel, non-floating clicks)
----------------------------------------------------- */
+   Minecraft Bevel Buttons (Interactive)
+   ---------------------------------------------------- */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 800;
+    gap: 0.6rem;
+    padding: 0.75rem 1.8rem;
+    font-family: var(--font-pixel);
+    font-size: 1.4rem;
     cursor: pointer;
     transition: var(--transition-snappy);
     text-decoration: none;
     border: 3px solid #000000;
-    text-shadow: 1px 1px 0px #000;
+    text-shadow: 2px 2px 0px #000;
     flex-grow: 1;
 }
 
@@ -812,6 +961,7 @@ body {
     border-left-color: #a8a8a8;
     border-bottom-color: #515151;
     border-right-color: #515151;
+    color: #ffff55;
 }
 
 .btn-primary:active {
@@ -820,9 +970,11 @@ body {
     border-bottom-color: #8b8b8b;
     border-right-color: #8b8b8b;
     background-color: #4a4a4a;
+    padding-top: 0.8rem;
+    padding-bottom: 0.7rem;
 }
 
-/* Accent custom hover for download button */
+/* Custom Emerald download button styling */
 .modal-actions .btn-primary {
     background-color: #047857;
     border-top-color: #34d399;
@@ -837,6 +989,7 @@ body {
     border-left-color: #6ee7b7;
     border-bottom-color: #047857;
     border-right-color: #047857;
+    color: #ffff55;
 }
 
 .modal-actions .btn-primary:active {
@@ -872,8 +1025,8 @@ body {
 }
 
 .btn svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
 }
 
 /* Footer */
@@ -881,12 +1034,13 @@ body {
     text-align: center;
     padding-top: 4rem;
     padding-bottom: 2rem;
-    border-top: 3px solid rgba(0,0,0,0.3);
+    border-top: 4px solid #1b1b1b;
     margin-top: auto;
 }
 
 .app-footer p {
-    font-size: 0.75rem;
+    font-family: var(--font-pixel);
+    font-size: 1.15rem;
     color: var(--text-muted);
 }
 
@@ -904,4 +1058,121 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* ----------------------------------------------------
+   Minecraft Item Hover Tooltip Styles
+   ---------------------------------------------------- */
+.mc-tooltip {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10000;
+    display: none;
+    background: #100110; /* Dark purple background */
+    border: 3px solid #250c5a; /* Purple border */
+    outline: 3px solid #100110; /* Outer blackish outline */
+    box-shadow: 0px 8px 24px rgba(0,0,0,0.85);
+    padding: 10px 14px;
+    width: 280px;
+    font-family: var(--font-sans);
+    color: #ffffff;
+    image-rendering: pixelated;
+}
+
+.mc-tooltip-title {
+    font-family: var(--font-pixel);
+    font-size: 1.5rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 0px #000;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+}
+
+.mc-tooltip-rarity {
+    font-family: var(--font-pixel);
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0px #000;
+}
+
+.rarity-common { color: #ffffff; }
+.rarity-rare { color: #55ffff; }
+.rarity-epic { color: #ff55ff; }
+.rarity-vip { 
+    color: #ffff55; 
+    font-weight: bold;
+    text-shadow: 2px 2px 0px #000, 0 0 8px rgba(255, 255, 85, 0.4);
+}
+
+.mc-tooltip-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-bottom: 2px solid #250c5a;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+}
+
+.mc-tooltip-meta span {
+    font-family: var(--font-pixel);
+    font-size: 1.1rem;
+}
+
+.mc-tooltip-desc {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.mc-tooltip-footer {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: #888;
+    text-align: right;
+    border-top: 1px dashed rgba(255,255,255,0.1);
+    padding-top: 4px;
+}
+
+/* ----------------------------------------------------
+   Enchanted Glint Animation Overlay
+   ---------------------------------------------------- */
+@keyframes enchanted-glint {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* Add glint on card titles or cards */
+.project-card.rarity-vip::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0) 30%, 
+        rgba(255, 85, 255, 0.12) 50%, 
+        rgba(255, 255, 255, 0) 70%
+    );
+    background-size: 200% 200%;
+    animation: enchanted-glint 4s linear infinite;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.project-card.rarity-vip:hover {
+    border-color: #ffff55 !important;
+    box-shadow: 
+        inset 4px 4px 0px var(--mc-stone-light),
+        inset -4px -4px 0px var(--mc-stone-dark),
+        0 0 25px rgba(255, 255, 85, 0.5) !important;
+}
+
+.enchanted-text {
+    background: linear-gradient(120deg, #ffff55 25%, #ff55ff 40%, #ffff55 55%, #ff55ff 70%, #ffff55 85%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: enchanted-glint 3s linear infinite;
+    filter: drop-shadow(2px 2px 0px #000);
 }
