@@ -1,10 +1,10 @@
 /**
  * ModVault - JavaScript static portfolio logic
  * Stores project databases static-side and handles catalog filtering, searches, popup details, and multilingual translation.
- * Features a Web Audio retro sound synthesizer, Canvas spore particles background, and custom Minecraft hover tooltips.
+ * Features a Web Audio retro sound & music synthesizer, Canvas click explosions, 3D card tilt, and live stats.
  */
 
-// Project database (Gamer/Modder showcase list with Bilingual support and Rarities)
+// Project database (Gamer/Modder showcase list with Bilingual support, Rarities, and Minecraft Lore attributes)
 const PROJECTS = [
     {
         id: 'floating-text-addon',
@@ -12,10 +12,15 @@ const PROJECTS = [
         size: '140 KB',
         version: 'v4.0.0',
         mcVersion: '1.21+',
+        downloads: 12853,
         downloadPath: 'downloads/floating_text.mcaddon',
         image: 'images/floating_text.png',
         icon: 'layers',
         rarity: 'vip',
+        lore: {
+            vi: ['§e★ Rank: Huyền Thoại VIP', '§a+100% Chữ Nổi Mượt Không Lag', '§b+3 Gậy Điều Khiển Trực Quan', '§d+Bảng Xếp Hạng Scoreboard 3D'],
+            en: ['§e★ Rank: Legendary VIP', '§a+100% Lag-Free Holograms', '§b+3 Intuitive Management Wands', '§d+Real-time 3D Scoreboards']
+        },
         title: {
             vi: 'Better Floating Text v4 (Chữ Nổi Lơ Lửng)',
             en: 'Better Floating Text v4'
@@ -83,10 +88,15 @@ const PROJECTS = [
         size: '180 KB',
         version: 'v1.4.2',
         mcVersion: '1.20.50+',
+        downloads: 5492,
         downloadPath: 'downloads/floating_leaderboards.mcaddon',
         image: 'images/floating_leaderboards.png',
         icon: 'layers',
         rarity: 'epic',
+        lore: {
+            vi: ['§d★ Rank: Sử Thi', '§b+Hiển Thị Top 10 Bảng Điểm', '§a+Tự Động Cập Nhật Online', '§7+Độ tương thích Realm cao'],
+            en: ['§d★ Rank: Epic Rarity', '§b+Top 10 Scoreboard Display', '§a+Real-time Live Syncing', '§7+Realm server optimized']
+        },
         title: {
             vi: 'Floating Leaderboards (Bảng Xếp Hạng Lơ Lửng)',
             en: 'Floating Leaderboards & Holograms'
@@ -136,10 +146,15 @@ const PROJECTS = [
         size: '1.2 MB',
         version: 'v2.1.0',
         mcVersion: '1.20+',
+        downloads: 9201,
         downloadPath: 'downloads/cyber_tech_addon.mcaddon',
         image: 'images/cyber_tech.png',
         icon: 'layers',
         rarity: 'rare',
+        lore: {
+            vi: ['§b★ Rank: Hiếm', '§a+15% Tốc Độ Đào Plasma', '§e+5 Bộ Giáp Đèn Neon Cực Đẹp', '§d+Kiếm Ánh Sáng Custom Sound'],
+            en: ['§b★ Rank: Rare Item', '§a+15% Plasma Drill Speed', '§e+5 Fully Animated Neon Suits', '§d+Custom Lightsaber Sounds']
+        },
         title: {
             vi: 'Cyber-Tech Armor & Tools',
             en: 'Cyber-Tech Armor & Tools'
@@ -189,10 +204,15 @@ const PROJECTS = [
         size: '2.4 MB',
         version: 'v1.0.4',
         mcVersion: '1.19+',
+        downloads: 15403,
         downloadPath: 'downloads/skyblock_expanded.mcpack',
         image: 'images/skyblock.png',
         icon: 'layers',
         rarity: 'common',
+        lore: {
+            vi: ['§7★ Rank: Thường', '§a+20 Thành Tích Sinh Tồn Mới', '§e+Công Thức Khoáng Sản Tái Tạo', '§b+Thương nhân đổi đồ cực hời'],
+            en: ['§7★ Rank: Common Item', '§a+20 Custom Skyblock Trophies', '§e+Renewable Mineral Recipes', '§b+Valuable Wandering Traders']
+        },
         title: {
             vi: 'Sinh Tồn SkyBlock Mở Rộng',
             en: 'SkyBlock Survival Expanded'
@@ -238,10 +258,15 @@ const PROJECTS = [
         size: '18.5 MB',
         version: 'v1.2.0',
         mcVersion: 'N/A',
+        downloads: 3852,
         downloadPath: 'downloads/pixel_knight_game.zip',
         image: 'images/pixel_knight.png',
         icon: 'gamepad-2',
         rarity: 'rare',
+        lore: {
+            vi: ['§b★ Rank: Hiếm', '§a+5 Màn Chơi Hầm Ngục Trap-Filled', '§d+3 Cấp Độ Nâng Cấp Kiếm', '§7+Hỗ trợ tay cầm chơi game'],
+            en: ['§b★ Rank: Rare Game', '§a+5 Unique Dungeon Levels', '§d+3 Sword Power-up Stages', '§7+Gamepad controller support']
+        },
         title: {
             vi: 'Hiệp Sĩ Pixel: Đi Ngục',
             en: 'Pixel Knight: Dungeon Crawler'
@@ -287,10 +312,15 @@ const PROJECTS = [
         size: '8.2 MB',
         version: 'v1.0.1',
         mcVersion: 'N/A',
+        downloads: 7129,
         downloadPath: 'downloads/blocky_runner.zip',
         image: 'images/blocky_runner.png',
         icon: 'gamepad-2',
         rarity: 'common',
+        lore: {
+            vi: ['§7★ Rank: Thường', '§a+Đường Chạy Voxel Vô Hạn', '§e+10+ Trang Phục Skin Độc Đáo', '§d+Tự lưu kỷ lục điểm số'],
+            en: ['§7★ Rank: Common Game', '§a+Infinite Procedural Tracks', '§e+10+ Unlockable Voxel Skins', '§d+Highscore local auto-saving']
+        },
         title: {
             vi: 'Chạy Đi Blocky: Voxel Run',
             en: 'Blocky Runner: Voxel Run'
@@ -356,7 +386,8 @@ const TRANSLATIONS = {
         'download-file': 'Tải xuống dự án',
         'close': 'Đóng',
         'game': 'Trò chơi',
-        'addon': 'Addon Minecraft'
+        'addon': 'Addon Minecraft',
+        'downloads': 'Lượt tải'
     },
     en: {
         'dev-bio': 'Independent Game Developer & Minecraft Addon Creator. Sharing custom mods, behavior packs, and standalone indie games.',
@@ -380,14 +411,17 @@ const TRANSLATIONS = {
         'download-file': 'Download Project File',
         'close': 'Close',
         'game': 'Game',
-        'addon': 'Minecraft Addon'
+        'addon': 'Minecraft Addon',
+        'downloads': 'Downloads'
     }
 };
 
-// Retro Sound Synthesizer via Web Audio API
+// Retro Audio and Background Music Synth via Web Audio API
 class MCRetroAudio {
     constructor() {
         this.ctx = null;
+        this.isPlayingMusic = false;
+        this.musicTimer = null;
     }
 
     init() {
@@ -409,7 +443,7 @@ class MCRetroAudio {
         osc.type = 'triangle';
         const now = this.ctx.currentTime;
         
-        // Brief blocky click sound: rapid frequency drop
+        // Very brief blocky sound: rapid pitch decay
         osc.frequency.setValueAtTime(130 * pitchMultiplier, now);
         osc.frequency.exponentialRampToValueAtTime(10 * pitchMultiplier, now + 0.045);
         
@@ -434,8 +468,8 @@ class MCRetroAudio {
         
         const now = this.ctx.currentTime;
         
-        // Minecraft XP levels rising chime: E5, G5, E6, G6
-        const notes = [659.25, 783.99, 1318.51, 1567.98];
+        // Minecraft XP levels rising chime
+        const notes = [659.25, 783.99, 1318.51, 1567.98]; // E5, G5, E6, G6
         
         notes.forEach((freq, idx) => {
             const osc = this.ctx.createOscillator();
@@ -455,16 +489,96 @@ class MCRetroAudio {
             osc.stop(now + idx * 0.075 + 0.16);
         });
     }
+
+    playMelodyNote(freq, startTime, duration, type='sine') {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, startTime);
+        
+        // Soft pluck arpeggio: slow attack and smooth exponential decay
+        gain.gain.setValueAtTime(0, startTime);
+        gain.gain.linearRampToValueAtTime(0.05, startTime + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration - 0.02);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc.start(startTime);
+        osc.stop(startTime + duration);
+    }
+
+    startMusic() {
+        this.init();
+        if (!this.ctx) return;
+        this.isPlayingMusic = true;
+        
+        // Sweden chord arpeggio loop: C - Em/B - Am - F
+        const scale = {
+            'C4': 261.63, 'D4': 293.66, 'E4': 329.63, 'G4': 392.00,
+            'A4': 440.00, 'B4': 493.88, 'C5': 523.25, 'D5': 587.33,
+            'E5': 659.25, 'G5': 783.99, 'A5': 880.00, 'B5': 987.77,
+            'C6': 1046.50
+        };
+        
+        const melody = [
+            // C major
+            ['G4', 0, 1.2], ['C5', 1, 1.2], ['E5', 2, 1.2], ['G5', 3, 2.4],
+            // Em/B
+            ['G4', 4, 1.2], ['B4', 5, 1.2], ['E5', 6, 1.2], ['G5', 7, 2.4],
+            // Am
+            ['A4', 8, 1.2], ['C5', 9, 1.2], ['E5', 10, 1.2], ['A5', 11, 2.4],
+            // F
+            ['A4', 12, 1.2], ['C5', 13, 1.2], ['F5', 14, 1.2], ['A5', 15, 2.4]
+        ];
+        
+        const playMeasure = () => {
+            if (!this.isPlayingMusic) return;
+            const now = this.ctx.currentTime;
+            
+            melody.forEach(([note, step, dur]) => {
+                const freq = scale[note];
+                const startTime = now + step * 0.42; // ~420ms per step
+                const duration = dur * 0.42;
+                
+                this.playMelodyNote(freq, startTime, duration, 'sine');
+                
+                // Spawn animated notes inside the UI
+                if (step % 2 === 0) {
+                    setTimeout(() => {
+                        if (this.isPlayingMusic) spawnFloatingNote();
+                    }, step * 420);
+                }
+            });
+            
+            // Repeat after 16 steps (16 * 420ms = 6720ms)
+            this.musicTimer = setTimeout(playMeasure, 6720);
+        };
+        
+        playMeasure();
+    }
+
+    stopMusic() {
+        this.isPlayingMusic = false;
+        if (this.musicTimer) {
+            clearTimeout(this.musicTimer);
+            this.musicTimer = null;
+        }
+    }
 }
 const audio = new MCRetroAudio();
 
-// Canvas Background Drifting Spore Particles
+// Spores + Click Explosions Particles Background Controller
+let spawnClickExplosion = null; // Defined inside closure later
+
 function initBackgroundParticles() {
     const canvas = document.getElementById('bg-particles');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     
     let particles = [];
+    let clickParticles = [];
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
     
@@ -479,7 +593,7 @@ function initBackgroundParticles() {
         mouse.y = e.clientY;
     });
     
-    class Particle {
+    class SporeParticle {
         constructor() {
             this.reset(true);
         }
@@ -487,13 +601,12 @@ function initBackgroundParticles() {
         reset(randomY = false) {
             this.x = Math.random() * width;
             this.y = randomY ? Math.random() * height : height + 10;
-            this.size = Math.random() * 5 + 2; // blocky square sizes
+            this.size = Math.random() * 5 + 2;
             this.speedX = Math.random() * 0.4 - 0.2;
-            this.speedY = Math.random() * 0.4 + 0.15; // float upwards
-            // Random green or blue particle colors
+            this.speedY = Math.random() * 0.4 + 0.15;
             this.color = Math.random() > 0.45 
-                ? `rgba(16, 185, 129, ${Math.random() * 0.22 + 0.1})` // Emerald Green
-                : `rgba(56, 189, 248, ${Math.random() * 0.22 + 0.1})`; // Cyan Blue
+                ? `rgba(16, 185, 129, ${Math.random() * 0.2 + 0.1})` // green
+                : `rgba(56, 189, 248, ${Math.random() * 0.2 + 0.1})`; // cyan
         }
         
         update() {
@@ -504,7 +617,7 @@ function initBackgroundParticles() {
                 this.reset(false);
             }
             
-            // Push particles away slightly when cursor gets close
+            // Mouse push-away force
             const dx = this.x - mouse.x;
             const dy = this.y - mouse.y;
             const dist = Math.sqrt(dx*dx + dy*dy);
@@ -521,33 +634,198 @@ function initBackgroundParticles() {
         }
     }
     
-    // Spawn particles density
+    class ClickParticle {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.size = Math.random() * 6 + 4; // blocky square sizes
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 3 + 2;
+            this.speedX = Math.cos(angle) * speed;
+            this.speedY = Math.sin(angle) * speed - 1.5; // push slightly upwards at first
+            this.alpha = 1.0;
+            this.decay = Math.random() * 0.03 + 0.02;
+            
+            // Random Minecraft block colors: Lapis blue, Redstone, Emerald, Diamond, Gold
+            const colors = [
+                '#38bdf8', // Diamond cyan
+                '#10b981', // Emerald green
+                '#ef4444', // Redstone red
+                '#fbbf24', // Gold yellow
+                '#3b82f6'  // Lapis blue
+            ];
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.speedY += 0.15; // Gravity pull
+            this.alpha -= this.decay;
+        }
+        
+        draw() {
+            ctx.save();
+            ctx.globalAlpha = this.alpha;
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.size, this.size);
+            ctx.restore();
+        }
+    }
+    
+    // Initial Spores density
     const count = Math.min(50, Math.floor((width * height) / 25000));
     for (let i = 0; i < count; i++) {
-        particles.push(new Particle());
+        particles.push(new SporeParticle());
     }
+    
+    // Spawn burst function
+    spawnClickExplosion = function(x, y) {
+        // Play click synth pitch
+        audio.playClick(0.7);
+        for (let i = 0; i < 18; i++) {
+            clickParticles.push(new ClickParticle(x, y));
+        }
+    };
+    
+    // Click page listener to spawn particles
+    document.addEventListener('mousedown', (e) => {
+        // Exclude inputs, buttons, links, or cards to avoid visual noise
+        if (e.target.tagName !== 'INPUT' && 
+            e.target.tagName !== 'BUTTON' && 
+            e.target.tagName !== 'A' && 
+            !e.target.closest('.project-card') && 
+            !e.target.closest('.jukebox-widget')) {
+            spawnClickExplosion(e.clientX, e.clientY);
+        }
+    });
     
     function animate() {
         ctx.clearRect(0, 0, width, height);
+        
+        // 1. Spore drift
         particles.forEach(p => {
             p.update();
             p.draw();
         });
+        
+        // 2. Click explosions
+        for (let i = clickParticles.length - 1; i >= 0; i--) {
+            const p = clickParticles[i];
+            p.update();
+            p.draw();
+            if (p.alpha <= 0) {
+                clickParticles.splice(i, 1);
+            }
+        }
+        
         requestAnimationFrame(animate);
     }
     
     animate();
 }
 
-// Minecraft Custom Floating Tooltip Controller
+// Spawn floating musical notes
+function spawnFloatingNote() {
+    const widget = document.getElementById('jukebox-widget');
+    if (!widget) return;
+    
+    const rect = widget.getBoundingClientRect();
+    const notes = ['♫', '♪', '♬', '♩'];
+    const symbol = notes[Math.floor(Math.random() * notes.length)];
+    
+    const el = document.createElement('div');
+    el.className = 'floating-note';
+    el.textContent = symbol;
+    
+    const drift = Math.random() * 40 - 20;
+    const rot = Math.random() * 60 - 30;
+    el.style.setProperty('--note-drift', `${drift}px`);
+    el.style.setProperty('--note-rotation', `${rot}deg`);
+    
+    el.style.left = `${rect.left + rect.width / 2 + window.scrollX + (Math.random() * 20 - 10)}px`;
+    el.style.top = `${rect.top + window.scrollY - 15}px`;
+    
+    // Color notes green, magenta, or gold
+    const noteColors = ['#ff55ff', '#55ff55', '#ffff55', '#55ffff'];
+    el.style.color = noteColors[Math.floor(Math.random() * noteColors.length)];
+    
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1800);
+}
+
+// 3D Card Parallax Tilt Handler
+function handleCardTilt(card) {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left; // x position inside card bounds
+        const y = e.clientY - rect.top;  // y position inside card bounds
+        
+        // Angle calculations (max tilt degrees = 15)
+        const tiltX = ((y / rect.height) - 0.5) * -16;
+        const tiltY = ((x / rect.width) - 0.5) * 16;
+        
+        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.03, 1.03, 1.03)`;
+    });
+    
+    card.style.transformStyle = 'preserve-3d';
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    });
+}
+
+// Live statistics download counters
+function initLiveCounters() {
+    setInterval(() => {
+        PROJECTS.forEach(project => {
+            // Increment logic: 60% chance to gain 1 to 4 downloads
+            if (Math.random() > 0.4) {
+                project.downloads += Math.floor(Math.random() * 3) + 1;
+                
+                // Update active popup download stats instantly if showing
+                const activeId = detailModal.getAttribute('data-active-id');
+                if (detailModal.classList.contains('active') && activeId === project.id) {
+                    const dlField = document.getElementById('modal-downloads-val');
+                    if (dlField) {
+                        dlField.textContent = project.downloads.toLocaleString() + '+';
+                    }
+                }
+                
+                // Update matching card sizes/stats text in catalog if needed
+                const cards = document.querySelectorAll(`.project-card[data-id="${project.id}"] .project-size`);
+                cards.forEach(el => {
+                    // We can display size + downloads or just update tooltips
+                });
+            }
+        });
+    }, 4000);
+}
+
+// Format minecraft colored text blocks (e.g. §a+15% Speed -> colored span blocks)
+function formatMinecraftColors(text) {
+    let formatted = escapeHtml(text)
+        .replace(/§a(.*?)(§|$)/g, '<span style="color: #55ff55;">$1</span>$2') // Green
+        .replace(/§b(.*?)(§|$)/g, '<span style="color: #55ffff;">$1</span>$2') // Cyan
+        .replace(/§d(.*?)(§|$)/g, '<span style="color: #ff55ff;">$1</span>$2') // Magenta
+        .replace(/§e(.*?)(§|$)/g, '<span style="color: #ffff55;">$1</span>$2') // Yellow
+        .replace(/§6(.*?)(§|$)/g, '<span style="color: #ffaa00;">$1</span>$2') // Gold
+        .replace(/§7(.*?)(§|$)/g, '<span style="color: #aaaaaa;">$1</span>$2'); // Gray
+        
+    // Sweep away lingering symbols
+    formatted = formatted.replace(/§[a-z0-9]/g, '');
+    return formatted;
+}
+
+// Custom Minecraft Floating Tooltip
 function initMCTooltip() {
     const tooltip = document.getElementById('mc-tooltip');
     if (!tooltip) return;
     
     document.addEventListener('mousemove', (e) => {
         if (tooltip.style.display === 'block') {
-            const xOffset = 15;
-            const yOffset = 15;
+            const xOffset = 18;
+            const yOffset = 18;
             
             let x = e.pageX + xOffset;
             let y = e.pageY + yOffset;
@@ -559,7 +837,6 @@ function initMCTooltip() {
             const viewWidth = window.innerWidth;
             const viewHeight = window.innerHeight;
             
-            // Boundary checks (prevent tooltips flying outside the screen)
             if (x + tooltipWidth > viewWidth + scrollX) {
                 x = e.pageX - tooltipWidth - 10;
             }
@@ -592,6 +869,11 @@ function showTooltip(projectId) {
         en: 'Click to view details'
     }[currentLang];
 
+    // Build lore stats attributes list
+    const loreHtml = project.lore[currentLang].map(line => `
+        <div style="font-size: 0.8rem; margin-top: 2px;">${formatMinecraftColors(line)}</div>
+    `).join('');
+
     tooltip.innerHTML = `
         <div class="mc-tooltip-title ${rarityClass}">${escapeHtml(project.title[currentLang])}</div>
         <div class="mc-tooltip-rarity ${rarityClass}">${rarityLabel}</div>
@@ -599,7 +881,12 @@ function showTooltip(projectId) {
             <span>${typeLabel}</span>
             <span>${project.size}</span>
         </div>
-        <div class="mc-tooltip-desc">${escapeHtml(project.shortDesc[currentLang])}</div>
+        <div style="margin-bottom: 6px;">
+            ${loreHtml}
+        </div>
+        <div class="mc-tooltip-desc" style="border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 6px;">
+            ${escapeHtml(project.shortDesc[currentLang])}
+        </div>
         <div class="mc-tooltip-footer">${footerText}</div>
     `;
     
@@ -631,13 +918,18 @@ const modalCloseBtn = document.getElementById('modal-close-btn');
 const langBtnVi = document.getElementById('lang-btn-vi');
 const langBtnEn = document.getElementById('lang-btn-en');
 
+// Jukebox Widget
+const jukeboxWidget = document.getElementById('jukebox-widget');
+const jukeboxLabel = document.getElementById('jukebox-label');
+
 /**
  * Initialize app listeners and initial render
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize graphics & particle loops
+    // Initialize background animations and tools
     initBackgroundParticles();
     initMCTooltip();
+    initLiveCounters();
 
     // Apply default language translations
     applyLanguage(currentLang);
@@ -653,13 +945,12 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCatalog();
     });
 
-    // Tab buttons events
+    // Tab buttons event
     filterTabs.forEach((tab) => {
-        // Play hover sound
         tab.addEventListener('mouseenter', () => audio.playHover());
         
         tab.addEventListener('click', () => {
-            audio.playClick(1.0); // Solid click sound
+            audio.playClick(1.0);
             
             filterTabs.forEach((t) => t.classList.remove('active'));
             tab.classList.add('active');
@@ -672,26 +963,40 @@ document.addEventListener('DOMContentLoaded', () => {
     // Language Toggles
     langBtnVi.addEventListener('mouseenter', () => audio.playHover());
     langBtnVi.addEventListener('click', () => {
-        audio.playClick(1.1);
+        audio.playClick(1.15);
         applyLanguage('vi');
     });
 
     langBtnEn.addEventListener('mouseenter', () => audio.playHover());
     langBtnEn.addEventListener('click', () => {
-        audio.playClick(1.1);
+        audio.playClick(1.15);
         applyLanguage('en');
+    });
+
+    // Jukebox background music controls
+    jukeboxWidget.addEventListener('mouseenter', () => audio.playHover());
+    jukeboxWidget.addEventListener('click', () => {
+        audio.playClick(0.95);
+        if (audio.isPlayingMusic) {
+            audio.stopMusic();
+            jukeboxWidget.classList.remove('active');
+            jukeboxLabel.textContent = currentLang === 'vi' ? 'JUKEBOX: TẮT' : 'JUKEBOX: OFF';
+        } else {
+            audio.startMusic();
+            jukeboxWidget.classList.add('active');
+            jukeboxLabel.textContent = currentLang === 'vi' ? 'JUKEBOX: BẬT' : 'JUKEBOX: ON';
+        }
     });
 
     // Close modal actions
     modalCloseBtn.addEventListener('mouseenter', () => audio.playHover());
     modalCloseBtn.addEventListener('click', () => {
-        audio.playClick(0.9);
+        audio.playClick(0.85);
         closeModal();
     });
-    
     detailModal.addEventListener('click', (e) => {
         if (e.target === detailModal) {
-            audio.playClick(0.9);
+            audio.playClick(0.85);
             closeModal();
         }
     });
@@ -699,7 +1004,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close modal on Escape key press
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && detailModal.classList.contains('active')) {
-            audio.playClick(0.9);
+            audio.playClick(0.85);
             closeModal();
         }
     });
@@ -717,10 +1022,20 @@ function applyLanguage(lang) {
         langBtnVi.classList.add('active');
         langBtnEn.classList.remove('active');
         document.documentElement.lang = 'vi';
+        if (!audio.isPlayingMusic) {
+            jukeboxLabel.textContent = 'JUKEBOX: TẮT';
+        } else {
+            jukeboxLabel.textContent = 'JUKEBOX: BẬT';
+        }
     } else {
         langBtnEn.classList.add('active');
         langBtnVi.classList.remove('active');
         document.documentElement.lang = 'en';
+        if (!audio.isPlayingMusic) {
+            jukeboxLabel.textContent = 'JUKEBOX: OFF';
+        } else {
+            jukeboxLabel.textContent = 'JUKEBOX: ON';
+        }
     }
 
     // Translate DOM text contents
@@ -794,7 +1109,7 @@ function renderCatalog() {
                 <h3 class="project-title ${titleColorClass}">${escapeHtml(project.title[currentLang])}</h3>
                 <p class="project-desc">${escapeHtml(project.shortDesc[currentLang])}</p>
                 <div class="card-footer">
-                    <span class="project-size">${project.size}</span>
+                    <span class="project-size"><i data-lucide="download" style="width:12px;height:12px;vertical-align:middle;margin-right:2px;"></i> ${project.downloads.toLocaleString()}+</span>
                     <button class="btn-card-action">
                         ${TRANSLATIONS[currentLang]['view-details']} <i data-lucide="arrow-right"></i>
                     </button>
@@ -802,7 +1117,7 @@ function renderCatalog() {
             </div>
         `;
 
-        // Card mouse listeners (Audio Click + Floating Tooltip triggers)
+        // Card mouse listeners (Audio Click + Floating Tooltip + 3D Tilt triggers)
         card.addEventListener('mouseenter', () => {
             audio.playHover();
             showTooltip(project.id);
@@ -814,9 +1129,12 @@ function renderCatalog() {
         
         card.addEventListener('click', () => {
             hideTooltip();
-            audio.playChime(); // XP Level Up chime sound
+            audio.playChime(); // Play XP level up chime on card click
             openModal(project.id);
         });
+        
+        // Apply 3D tilt transformation
+        handleCardTilt(card);
         
         catalogGrid.appendChild(card);
     });
@@ -828,20 +1146,14 @@ function renderCatalog() {
 }
 
 /**
- * Helper to escape HTML and format basic markdown tags like bold and code highlights
- */
-function formatText(text) {
-    return escapeHtml(text)
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/`(.*?)`/g, '<code>$1</code>');
-}
-
-/**
  * Render and Open project Details Modal
  */
 function openModal(id) {
     const project = PROJECTS.find((p) => p.id === id);
     if (!project) return;
+
+    // Set active ID to synchronize counters
+    detailModal.setAttribute('data-active-id', project.id);
 
     const badgeClass = project.type === 'game' ? 'badge-game' : 'badge-addon';
     const badgeLabel = TRANSLATIONS[currentLang][project.type];
@@ -853,6 +1165,13 @@ function openModal(id) {
     const usageSteps = project.usage && project.usage[currentLang] 
         ? project.usage[currentLang].map(step => `<li>${formatText(step)}</li>`).join('')
         : '';
+        
+    // Build Minecraft-style stats lore lines html for modal
+    const statsHtml = project.lore[currentLang].map(line => `
+        <div style="font-size: 0.95rem; margin-top: 4px; font-family: var(--font-sans); text-shadow: 1px 1px 0px #000;">
+            ${formatMinecraftColors(line)}
+        </div>
+    `).join('');
 
     // Modal Content template
     modalBodyContent.innerHTML = `
@@ -874,8 +1193,8 @@ function openModal(id) {
                 <span class="meta-value">${project.size}</span>
             </div>
             <div class="meta-item">
-                <span class="meta-label">${TRANSLATIONS[currentLang]['category']}</span>
-                <span class="meta-value">${TRANSLATIONS[currentLang][project.type]}</span>
+                <span class="meta-label">${TRANSLATIONS[currentLang]['downloads']}</span>
+                <span class="meta-value" id="modal-downloads-val">${project.downloads.toLocaleString()}+</span>
             </div>
             <div class="meta-item">
                 <span class="meta-label">${TRANSLATIONS[currentLang]['compatibility']}</span>
@@ -885,6 +1204,10 @@ function openModal(id) {
                 <span class="meta-label">${TRANSLATIONS[currentLang]['license']}</span>
                 <span class="meta-value">${TRANSLATIONS[currentLang]['free']}</span>
             </div>
+        </div>
+
+        <div style="background-color: rgba(16,1,16,0.5); border: 3px solid #250c5a; outline: 3px solid #100110; padding: 10px 14px; margin-top: 0.2rem;">
+            ${statsHtml}
         </div>
         
         <div class="modal-description">
@@ -929,13 +1252,15 @@ function openModal(id) {
     const cnBtn = document.getElementById('modal-cancel-btn');
 
     dlBtn.addEventListener('mouseenter', () => audio.playHover());
-    dlBtn.addEventListener('click', () => {
-        audio.playChime(); // Play XP level up chime on download
+    dlBtn.addEventListener('click', (e) => {
+        // Trigger redstone particles at coordinates of button click
+        if (spawnClickExplosion) spawnClickExplosion(e.clientX, e.clientY);
+        audio.playChime();
     });
 
     cnBtn.addEventListener('mouseenter', () => audio.playHover());
     cnBtn.addEventListener('click', () => {
-        audio.playClick(0.9);
+        audio.playClick(0.85);
         closeModal();
     });
 
@@ -954,6 +1279,7 @@ function openModal(id) {
  */
 function closeModal() {
     detailModal.classList.remove('active');
+    detailModal.removeAttribute('data-active-id');
     document.body.style.overflow = ''; // Restore background scroll
 }
 
