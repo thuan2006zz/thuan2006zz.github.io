@@ -425,36 +425,44 @@ class MCRetroAudio {
     }
 
     init() {
-        if (!this.ctx) {
-            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (this.ctx && this.ctx.state === 'suspended') {
-            this.ctx.resume();
+        try {
+            if (!this.ctx) {
+                this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (this.ctx && this.ctx.state === 'suspended') {
+                this.ctx.resume().catch(() => {});
+            }
+        } catch (e) {
+            // silently handle blocked context creation
         }
     }
 
     playClick(pitchMultiplier = 1.0) {
-        this.init();
-        if (!this.ctx) return;
-        
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        
-        osc.type = 'triangle';
-        const now = this.ctx.currentTime;
-        
-        // Very brief blocky sound: rapid pitch decay
-        osc.frequency.setValueAtTime(130 * pitchMultiplier, now);
-        osc.frequency.exponentialRampToValueAtTime(10 * pitchMultiplier, now + 0.045);
-        
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
-        
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        
-        osc.start(now);
-        osc.stop(now + 0.05);
+        try {
+            this.init();
+            if (!this.ctx) return;
+            
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            
+            osc.type = 'triangle';
+            const now = this.ctx.currentTime;
+            
+            // Very brief blocky sound: rapid pitch decay
+            osc.frequency.setValueAtTime(130 * pitchMultiplier, now);
+            osc.frequency.exponentialRampToValueAtTime(10 * pitchMultiplier, now + 0.045);
+            
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+            
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            
+            osc.start(now);
+            osc.stop(now + 0.05);
+        } catch (e) {
+            // ignore audio crashes
+        }
     }
 
     playHover() {
@@ -463,50 +471,60 @@ class MCRetroAudio {
     }
 
     playChime() {
-        this.init();
-        if (!this.ctx) return;
-        
-        const now = this.ctx.currentTime;
-        
-        // Minecraft XP levels rising chime
-        const notes = [659.25, 783.99, 1318.51, 1567.98]; // E5, G5, E6, G6
-        
-        notes.forEach((freq, idx) => {
+        try {
+            this.init();
+            if (!this.ctx) return;
+            
+            const now = this.ctx.currentTime;
+            
+            // Minecraft XP levels rising chime
+            const notes = [659.25, 783.99, 1318.51, 1567.98]; // E5, G5, E6, G6
+            
+            notes.forEach((freq, idx) => {
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.075);
+                    
+                    gain.gain.setValueAtTime(0.0, now + idx * 0.075);
+                    gain.gain.linearRampToValueAtTime(0.08, now + idx * 0.075 + 0.015);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.075 + 0.14);
+                    
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    
+                    osc.start(now + idx * 0.075);
+                    osc.stop(now + idx * 0.075 + 0.16);
+                } catch (err) {}
+            });
+        } catch (e) {
+            // ignore audio crashes
+        }
+    }
+
+    playMelodyNote(freq, startTime, duration, type='sine') {
+        try {
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
             
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, now + idx * 0.075);
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, startTime);
             
-            gain.gain.setValueAtTime(0.0, now + idx * 0.075);
-            gain.gain.linearRampToValueAtTime(0.08, now + idx * 0.075 + 0.015);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.075 + 0.14);
+            // Soft pluck arpeggio: slow attack and smooth exponential decay
+            gain.gain.setValueAtTime(0, startTime);
+            gain.gain.linearRampToValueAtTime(0.05, startTime + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration - 0.02);
             
             osc.connect(gain);
             gain.connect(this.ctx.destination);
             
-            osc.start(now + idx * 0.075);
-            osc.stop(now + idx * 0.075 + 0.16);
-        });
-    }
-
-    playMelodyNote(freq, startTime, duration, type='sine') {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, startTime);
-        
-        // Soft pluck arpeggio: slow attack and smooth exponential decay
-        gain.gain.setValueAtTime(0, startTime);
-        gain.gain.linearRampToValueAtTime(0.05, startTime + 0.04);
-        gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration - 0.02);
-        
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        
-        osc.start(startTime);
-        osc.stop(startTime + duration);
+            osc.start(startTime);
+            osc.stop(startTime + duration);
+        } catch (e) {
+            // ignore audio crashes
+        }
     }
 
     startMusic() {
