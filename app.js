@@ -1184,6 +1184,15 @@ function renderCatalog() {
 }
 
 /**
+ * Helper to escape HTML and format basic markdown tags like bold and code highlights
+ */
+function formatText(text) {
+    return escapeHtml(text)
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/`(.*?)`/g, '<code>$1</code>');
+}
+
+/**
  * Render and Open project Details Modal
  */
 function openModal(id) {
